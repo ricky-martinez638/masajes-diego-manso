@@ -1086,3 +1086,32 @@ html {
     scroll-behavior: smooth;
 }
 
+/* Evitar desplazamiento lateral */
+body {
+    overflow-x: hidden;
+}
+
+/* Ajustar sección clientes en móvil */
+@media (max-width: 768px) {
+    .clientes-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr); /* 2 columnas */
+        gap: 15px;
+        justify-items: center;
+    }
+
+    .clientes-grid img {
+        width: 100%;
+        max-width: 150px; /* Tamaño controlado */
+        height: auto;
+        border-radius: 50%; /* Mantener el estilo circular */
+    }
+
+    .titulo-clientes,
+    .descripcion-clientes {
+        text-align: center;
+        padding: 0 10px;
+    }
+}
+
+
