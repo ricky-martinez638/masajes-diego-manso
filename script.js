@@ -154,27 +154,21 @@ blogNextBtn.addEventListener('click', () => {
 // Inicializar el slider
 showBlog(currentBlogIndex);
 
-// ===== LIGHTBOX =====
-const lightbox = document.getElementById('lightbox');
-const lightboxImg = document.getElementById('lightbox-img');
-const closeLightbox = document.querySelector('.lightbox .close');
+// ===== MODAL PARA AGRANDAR IMÁGENES =====
+const modal = document.getElementById("modal-imagen");
+const modalImg = document.getElementById("imagen-grande");
+const cerrar = document.getElementsByClassName("cerrar")[0];
 
-// Detectar clic en las imágenes
-document.querySelectorAll('.blog-card img').forEach(img => {
-    img.addEventListener('click', () => {
-        lightbox.style.display = 'flex';
-        lightboxImg.src = img.src;
+document.querySelectorAll(
+    ".servicio img, .clientes img, .blog-card img, .contacto-imagen img, .sobre-mi-imagen img"
+).forEach(img => { 
+    img.addEventListener("click", () => {
+        modal.style.display = "flex";
+        modalImg.src = img.src;
     });
 });
 
-// Cerrar con la X
-closeLightbox.addEventListener('click', () => {
-    lightbox.style.display = 'none';
-});
+cerrar.onclick = () => { modal.style.display = "none"; };
+modal.onclick = (e) => { if (e.target === modal) modal.style.display = "none"; };
 
-// Cerrar haciendo clic afuera
-lightbox.addEventListener('click', (e) => {
-    if (e.target === lightbox) {
-        lightbox.style.display = 'none';
-    }
-});
+
