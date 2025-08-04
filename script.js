@@ -102,12 +102,16 @@ document.getElementById('enviar-whatsapp').addEventListener('click', function (e
         `Servicios: ${serviciosSeleccionados}%0A` +
         `Mensaje: ${mensaje}`;
 
-    // Número de WhatsApp (cambiar si hace falta)
-    const numero = "5491134520027"; 
-    const url = `https://wa.me/${numero}?text=${texto}`;
+    // Detectar si es móvil
+const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
 
-    // Abrir WhatsApp
-    window.open(url, '_blank');
+if (isMobile) {
+    // Si es celular, abrir la app de WhatsApp
+    window.location.href = `https://api.whatsapp.com/send?phone=${numero}&text=${texto}`;
+} else {
+    // Si es PC, abrir WhatsApp Web
+    window.open(`https://web.whatsapp.com/send?phone=${numero}&text=${texto}`, '_blank');
+}
 
     // Opcional: Limpiar formulario después de enviar
     document.querySelector('.contacto-form').reset();
