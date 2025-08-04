@@ -558,6 +558,26 @@ html {
     transform: scale(1.05);
 }
 
+.custom-multiselect .selected {
+    padding: 12px;
+    display: flex;
+    justify-content: center; /* CENTRA el texto */
+    align-items: center;
+    color: #555;
+    position: relative; /* para mantener la flecha */
+}
+
+.custom-multiselect .selected i {
+    position: absolute;
+    right: 15px; /* flecha en el borde derecho */
+}
+
+/* Centrar placeholder de los inputs */
+.contacto-form input::placeholder {
+    text-align: center;
+}
+
+
 /* ===== BOTÓN WHATSAPP FLOTANTE ===== */
 .whatsapp-float {
     position: fixed;
@@ -715,22 +735,31 @@ html {
     cursor: pointer;
     margin-bottom: 15px;
     font-size: 1em;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
+
 .custom-multiselect .selected {
     padding: 12px;
     display: flex;
-    justify-content: space-between;
+    justify-content: center; /* Texto centrado */
     align-items: center;
     color: #555;
+    position: relative; /* Para posicionar la flecha */
+    text-align: center;
 }
+
 .custom-multiselect .selected i {
+    position: absolute;
+    right: 15px; /* Flecha a la derecha */
     font-size: 0.9em;
     color: gray;
     transition: transform 0.3s;
 }
+
 .custom-multiselect.open .selected i {
     transform: rotate(180deg);
 }
+
 .custom-multiselect .options {
     position: absolute;
     top: 100%;
@@ -743,18 +772,28 @@ html {
     overflow-y: auto;
     display: none;
     z-index: 10;
+    flex-direction: column;
 }
+
 .custom-multiselect.open .options {
-    display: block;
+    display: flex;
 }
+
 .custom-multiselect .options div {
-    padding: 10px;
+    padding: 12px;
+    border-bottom: 1px solid #eee;
     cursor: pointer;
     transition: background 0.2s;
 }
+
 .custom-multiselect .options div:hover {
-    background: #f0f0f0;
+    background: #e6f7ee;
 }
+
+.custom-multiselect .options div:last-child {
+    border-bottom: none;
+}
+
 .custom-multiselect .options div.selected-option::after {
     content: "✓";
     float: right;

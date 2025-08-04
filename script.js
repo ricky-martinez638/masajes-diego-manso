@@ -74,7 +74,6 @@ document.addEventListener('click', (e) => {
 document.getElementById('enviar-whatsapp').addEventListener('click', function (e) {
     e.preventDefault();
 
-    // Capturar valores
     const nombre = document.getElementById('nombre').value.trim();
     const dni = document.getElementById('dni').value.trim();
     const telefono = document.getElementById('telefono').value.trim();
@@ -82,44 +81,41 @@ document.getElementById('enviar-whatsapp').addEventListener('click', function (e
     const instagram = document.getElementById('instagram').value.trim();
     const mensaje = document.getElementById('mensaje').value.trim();
 
-    // Capturar servicios seleccionados del multiselect
     const serviciosSeleccionados = Array.from(
         document.querySelectorAll('.custom-multiselect .options div.selected-option')
     ).map(el => el.getAttribute('data-value')).join(', ');
 
-    // Validar campos obligatorios
     if (!nombre || !dni || !telefono || !mensaje || !serviciosSeleccionados) {
         alert('Por favor completá todos los campos obligatorios (Nombre, DNI, Teléfono, Servicios y Mensaje).');
         return;
     }
 
-    // Texto para WhatsApp
-    const texto = `Hola, soy ${nombre}.%0AQuiero solicitar un servicio.%0A` +
-        `DNI: ${dni}%0A` +
-        `Teléfono: ${telefono}%0A` +
-        `Email: ${email || 'No informado'}%0A` +
-        `Instagram: ${instagram || 'No informado'}%0A` +
-        `Servicios: ${serviciosSeleccionados}%0A` +
-        `Mensaje: ${mensaje}`;
+    const texto = encodeURIComponent(
+        `Hola, soy ${nombre}.\nQuiero solicitar un servicio.\n` +
+        `DNI: ${dni}\n` +
+        `Teléfono: ${telefono}\n` +
+        `Email: ${email || 'No informado'}\n` +
+        `Instagram: ${instagram || 'No informado'}\n` +
+        `Servicios: ${serviciosSeleccionados}\n` +
+        `Mensaje: ${mensaje}`
+    );
 
-    // Detectar si es móvil
-const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+    const numero = "5491134520027";
+    const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+    const url = isMobile
+        ? `whatsapp://send?phone=${numero}&text=${texto}`
+        : `https://web.whatsapp.com/send?phone=${numero}&text=${texto}`;
 
-if (isMobile) {
-    // Si es celular, abrir la app de WhatsApp
-    window.location.href = `https://api.whatsapp.com/send?phone=${numero}&text=${texto}`;
-} else {
-    // Si es PC, abrir WhatsApp Web
-    window.open(`https://web.whatsapp.com/send?phone=${numero}&text=${texto}`, '_blank');
-}
+    window.location.href = url;
 
-    // Opcional: Limpiar formulario después de enviar
+    // Limpiar formulario
     document.querySelector('.contacto-form').reset();
     document.querySelector('.custom-multiselect .selected').textContent = 'Seleccionar servicios';
     document.querySelectorAll('.custom-multiselect .options div').forEach(el => el.classList.remove('selected-option'));
 
     alert('¡Tu solicitud fue enviada por WhatsApp!');
 });
+
 
 
 // ===== ANIMACIONES FADE-IN =====
